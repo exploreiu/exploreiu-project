@@ -6,7 +6,12 @@
   <title>Phases of Integral University</title>
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
- <style>
+  <!-- Clerk SDK -->
+  <script async crossorigin="anonymous"
+    data-clerk-publishable-key="pk_test_Y3J1Y2lhbC1tb3JheS04OS5jbGVyay5hY2NvdW50cy5kZXYk"
+    src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js">
+  </script>
+  <style>
     /* Custom CSS for phase images */
     .phase-image {
       width: 100%; /* Make images responsive */
@@ -49,34 +54,43 @@
       font-size: 1rem;
       color: #666;
     }
+
+    /* Clerk UserButton Styles */
+    #user-button {
+      margin-left: 10px;
+    }
   </style>
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">Virtual Campus Tour</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#contact">Contact</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#signup">Signup</a>
-          </li>
-        </ul>
-      </div>
+ <!-- Navigation Bar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">Virtual Campus Tour</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html" onclick="sessionStorage.removeItem('authRedirect')">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contact">Contact</a>
+        </li>
+        <li class="nav-item">
+          <div class="d-flex align-items-center">
+            <div id="user-button"></div>
+            <button class="btn btn-outline-danger ms-2" id="sign-out-btn">Sign Out</button>
+          </div>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
+
 
   <!-- Phases Section -->
   <section class="phase-section">
@@ -87,7 +101,7 @@
         <div class="col-md-4">
           <div class="phase-card">
             <a href="phase1.html">
-            <img src="phase1.jpg" alt="Phase 1">
+              <img src="phase1.jpg" alt="Phase 1">
             </a>
             <h3>Phase 1: Integral University</h3>
             <p>Explore the state-of-the-art of phase 1</p>
@@ -97,7 +111,7 @@
         <div class="col-md-4">
           <div class="phase-card">
             <a href="phase2.html">
-            <img src="phase2.jpg" alt="Phase 2">
+              <img src="phase2.jpg" alt="Phase 2">
             </a>
             <h3>Phase 2: Integral University</h3>
             <p>Explore the state-of-the-art of phase 2</p>
@@ -107,7 +121,7 @@
         <div class="col-md-4">
           <div class="phase-card">
             <a href="phase1.html">
-            <img src="phase3.jpg" alt="Phase 3">
+              <img src="phase3.jpg" alt="Phase 3">
             </a>
             <h3>Phase 3: Integral University</h3>
             <p>Explore the state-of-the-art of phase 3</p>
@@ -124,5 +138,35 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Add this script to phase.html -->
+  <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+  try {
+    const Clerk = window.Clerk;
+    await Clerk.load({
+      publishableKey: "pk_test_Y3J1Y2lhbC1tb3JheS04OS5jbGVyay5hY2NvdW50cy5kZXYk",
+    });
+
+    if (!Clerk.user) {
+      window.location.href = 'index.html';
+      return;
+    }
+
+    Clerk.mountUserButton('#user-button');
+
+    document.getElementById('sign-out-btn').addEventListener('click', () => {
+      sessionStorage.removeItem('authRedirect');
+      Clerk.signOut(() => {
+        window.location.href = 'index.html';
+      });
+    });
+
+    Clerk.removeAllListeners();
+    
+  } catch (error) {
+    console.error("Clerk initialization failed:", error);
+  }
+});
+    </script>
 </body>
 </html>
