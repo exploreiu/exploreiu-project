@@ -1,0 +1,42 @@
+/* Light Mode (Default) */
+:root {
+    --background-color: #ffffff;
+    --text-color: #000000;
+    --navbar-bg: #343a40;
+    --footer-bg: #343a40;
+    --card-bg: #f8f9fa;
+    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Dark Mode */
+  [data-theme="dark"] {
+    --background-color: #121212;
+    --text-color: #ffffff;
+    --navbar-bg: #1a1a1a;
+    --footer-bg: #1a1a1a;
+    --card-bg: #1e1e1e;
+    --card-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Apply Variables */
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  
+  .navbar-dark {
+    background-color: var(--navbar-bg) !important;
+  }
+  
+  footer {
+    background-color: var(--footer-bg) !important;
+  }
+  
+  .contact-card, .team-member {
+    background-color: var(--card-bg);
+    box-shadow: var(--card-shadow);
+  }
+  .team-member:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+  }

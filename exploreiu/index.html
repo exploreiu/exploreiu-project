@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EXPLORE.IU</title>
+  <link rel="icon" href="data:,">
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for Instagram Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+  <script defer crossorigin="anonymous"
+  data-clerk-publishable-key="pk_test_Y3J1Y2lhbC1tb3JheS04OS5jbGVyay5hY2NvdW50cy5kZXYk"
+  src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js">
+</script>
+  <style>
+        :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --accent-color: #e74c3c;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Enhanced Navigation Bar */
+    .navbar {
+      background: rgba(0, 0, 0, 0.8) !important;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 1.5rem;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--secondary-color) !important;
+    }
+
+    /* Enhanced Home Section */
+    .home-section {
+      position: relative;
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('Integral.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      height: 100vh;
+    }
+
+    .home-section h1 {
+      font-size: 4.5rem;
+      font-weight: 700;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+      animation: fadeInUp 1s ease;
+    }
+
+    .home-section p {
+      font-size: 1.8rem;
+      text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+      margin-bottom: 2rem;
+      animation: fadeInUp 1s ease 0.2s;
+    }
+
+    #explore-btn {
+      padding: 1rem 2.5rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+      border: 2px solid white;
+      background: transparent;
+      color: white;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      animation: pulse 2s infinite;
+    }
+
+    #explore-btn:hover {
+      background: var(--secondary-color);
+      border-color: var(--secondary-color);
+      transform: translateY(-3px);
+    }
+
+    /* Enhanced Team Section */
+.team-section {
+    padding: 6rem 0;
+    background: #f8f9fa;
+}
+
+.team-section h2 {
+    text-align: center;
+    margin-bottom: 4rem;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #2c3e50;
+    position: relative;
+}
+
+.team-section h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: #3498db;
+    margin: 1rem auto;
+}
+
+.team-member {
+    position: relative;
+    text-align: center;
+    margin-bottom: 2rem;
+    perspective: 1000px;
+    transition: all 0.3s ease;
+}
+
+.team-member-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-member-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(52, 152, 219, 0.1), transparent);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+}
+
+.team-member:hover .team-member-card {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.team-member:hover .team-member-card::before {
+    animation: shine 1.5s ease;
+}
+
+.team-member-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 1.5rem;
+    border: 4px solid #3498db;
+    padding: 3px;
+    transition: all 0.3s ease;
+    position: relative;
+    background: white;
+}
+
+.team-member:hover .team-member-image {
+    transform: scale(1.05);
+    border-color: #e74c3c;
+}
+
+.team-member-info {
+    position: relative;
+    z-index: 1;
+}
+
+.team-member h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+}
+
+.team-member p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.team-member:hover .social-links {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #3498db;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-link:hover {
+    background: #e74c3c;
+    transform: translateY(-3px);
+}
+
+@keyframes shine {
+    0% { left: -50%; }
+    100% { left: 150%; }
+}
+
+@media (max-width: 768px) {
+    .team-member-image {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .team-section h2 {
+        font-size: 2.2rem;
+    }
+}
+
+
+    /* Enhanced Footer */
+    footer {
+      background: var(--primary-color);
+      color: white;
+      padding: 2rem 0;
+    }
+
+    footer p {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .home-section h1 {
+        font-size: 3rem;
+      }
+      .home-section p {
+        font-size: 1.2rem;
+      }
+      .team-member img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  </style>
+  <!-- Clerk SDK -->
+  <script async crossorigin="anonymous"
+    data-clerk-publishable-key="pk_test_Y3J1Y2lhbC1tb3JheS04OS5jbGVyay5hY2NvdW50cy5kZXYk"
+    src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@5/dist/clerk.browser.js">
+  </script>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Virtual Campus Tour</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">Contact</a>
+          </li>
+          <li class="nav-item" id="auth-items">
+            <!-- Dynamic auth buttons will be inserted here -->
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-outline-light" id="theme-toggle">
+              <i class="fas fa-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Home Section -->
+  <section id="home" class="home-section">
+    <div class="container">
+      <h1>Welcome to EXPLORE.IU</h1>
+      <p>Discover the beauty of Integral University through our virtual campus tour.</p>
+      <button class="btn btn-outline-light" id="explore-btn">Explore</button>
+    </div>
+  </section>
+
+  <!-- Clerk Authentication UI -->
+  <div id="clerk-sign-in" style="display: none;"></div>
+  <div id="clerk-sign-up" style="display: none;"></div>
+
+  
+<!-- Team Section -->
+<section id="team" class="team-section">
+  <div class="container">
+      <h2>Our Creative Team</h2>
+      <div class="row">
+          <!-- Team Member 1 -->
+          <div class="col-md-3">
+              <div class="team-member">
+                  <div class="team-member-card">
+                      <img src="laraib.jpg" class="team-member-image" alt="Laraib Alam">
+                      <div class="team-member-info">
+                          <h3>Laraib Alam</h3>
+                          <p>Frontend Developer</p>
+                          <div class="social-links">
+                              <a href="https://www.instagram.com/laraibalam9/?igsh=MTc1bDIwbmxkMjg4Zg" class="social-link">
+                                  <i class="fab fa-instagram"></i>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+          <!-- Repeat for other team members -->
+          <!-- Team Member 2 -->
+          <div class="col-md-3">
+              <div class="team-member">
+                  <div class="team-member-card">
+                      <img src="laiba.jpg" class="team-member-image" alt="Laiba Khan">
+                      <div class="team-member-info">
+                          <h3>Laiba Khan</h3>
+                          <p>Backend Developer</p>
+                          <div class="social-links">
+                              <a href="https://www.instagram.com/laibakhan_2125/?igsh=MXRrYWljbGRmbWtkMA#" class="social-link">
+                                  <i class="fab fa-instagram"></i>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+          <!-- Team Member 3 -->
+          <div class="col-md-3">
+              <div class="team-member">
+                  <div class="team-member-card">
+                      <img src="mantasha.jpg" class="team-member-image" alt="Mantasha Begam">
+                      <div class="team-member-info">
+                          <h3>Mantasha Begam</h3>
+                          <p>UI/UX Designer</p>
+                          <div class="social-links">
+                              <a href="https://www.instagram.com/xmorxyz_/?igsh=MmN2ZnRxYjMzZzhn#" class="social-link">
+                                  <i class="fab fa-instagram"></i>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+          <!-- Team Member 4 -->
+          <div class="col-md-3">
+              <div class="team-member">
+                  <div class="team-member-card">
+                      <img src="adnan.jpg" class="team-member-image" alt="Adnan Imtiyaaz">
+                      <div class="team-member-info">
+                          <h3>Adnan Imtiyaaz</h3>
+                          <p>Testing Engineer</p>
+                          <div class="social-links">
+                              <a href="https://instagram.com/_wtf.adnan/?igsh=MXE2cG81OWlmOHhhag%3D%3D#" class="social-link">
+                                  <i class="fab fa-instagram"></i>
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3">
+    <p>&copy; 2025 Virtual Campus Tour. All rights reserved.</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+</body>
+</html>
